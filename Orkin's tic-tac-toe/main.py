@@ -14,6 +14,7 @@ def banner():
 
 def player_names():
     print('ENTER THE PLAYERS NAMES')
+    print('default names: Orkin1 & Orkin2')
 
     player1 = input('Player1:')
     player2 = input('Player2:')
@@ -146,7 +147,7 @@ while True:
             display_board(board, player1, player2)
 
             if win_check(board, player2_marker):
-                print('Congrats Mr.' + player2 + '! You won this game!')
+                print('Congrats Mr.' + player2 + '! You are the OrkinKing of this game!')
                 break
 
             elif full_board(board):
