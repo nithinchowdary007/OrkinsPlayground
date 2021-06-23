@@ -24,6 +24,10 @@ def player_names():
     if player2 == '' or player2 == ' ':
         player2 = 'Orkin2'
 
+    if player1 == player2:
+        player1 = player1 + '_1'
+        player2 = player2 + '_2'
+
     return (player1, player2)
 
 
@@ -46,14 +50,17 @@ def player_markers():
 
 def display_board(board, player1, player2):
     clear_output()
-    print(player1 + ' Vs ' + player2)
-    print(' ____ ____ ____ ')
-    print('| ' + board[7] + '  | ' + board[8] + '  | ' + board[9] + '  |')
-    print('|____|____|____|')
-    print('| ' + board[4] + '  | ' + board[5] + '  | ' + board[6] + '  |')
-    print('|____|____|____|')
-    print('| ' + board[1] + '  | ' + board[2] + '  | ' + board[3] + '  |')
-    print('|____|____|____|')
+
+    print('═══ '+ player1 + ' Vs ' + player2 +' ═══')
+    print('╔═════════════════════╗')
+    print('║ ╔═════╔═════╗═════╗ ║')
+    print('║ ║  '+board[7]+'  ║  '+board[8]+'  ║  '+board[9]+'  ║ ║')
+    print('║ ║═════║═════║═════║ ║')
+    print('║ ║  '+board[4]+'  ║  '+board[5]+'  ║  '+board[6]+'  ║ ║')
+    print('║ ║═════║═════║═════║ ║')
+    print('║ ║  '+board[1]+'  ║  '+board[2]+'  ║  '+board[3]+'  ║ ║')
+    print('║ ╚═════╚═════╝═════╝ ║')
+    print('╚═════════════════════╝')
 
 
 def first_turn(player1, player2):
@@ -100,62 +107,64 @@ def replay(player1, player2):
     query = input('Would you like play again Mr.' + player1 + ' & Mr.' + player2 + '? y/n: ').lower()
     return query == 'y'
 
-banner()
-player1,player2 = player_names()
 
-while True:
-    board = [' '] * 10
-    board[0] = '#'
+if __name__ == '__main__':
+    banner()
+    player1, player2 = player_names()
 
-    print('                                 ')
-    print('---------------------------------')
-    print('Player 1 : ' + player1)
-    print('Player 2 : ' + player2)
-    print('---------------------------------')
-    print('                                 ')
+    while True:
+        board = [' '] * 10
+        board[0] = '#'
 
-    query = input('ARE YOU READY?y/n :')
-    if query.lower()[0] == 'y':
-        game_on = True
-    else:
-        game_on = False
-        break
+        print('                                 ')
+        print('---------------------------------')
+        print('Player 1 : ' + player1)
+        print('Player 2 : ' + player2)
+        print('---------------------------------')
+        print('                                 ')
 
-    player1_marker, player2_marker = player_markers()
+        query = input('ARE YOU READY?y/n :')
+        if query.lower()[0] == 'y':
+            game_on = True
+        else:
+            game_on = False
+            break
 
-    display_board(board, player1, player2)
-    turn = first_turn(player1, player2)
+        player1_marker, player2_marker = player_markers()
 
-    while game_on:
+        display_board(board, player1, player2)
+        turn = first_turn(player1, player2)
 
-        if turn == player1:
-            select_position(board, turn, player1, player2, player1_marker, player2_marker)
-            display_board(board, player1, player2)
-            if win_check(board, player1_marker):
-                print('Congrats Mr.' + player1 + '! You won this game!')
-                break
+        while game_on:
 
-            elif full_board(board):
-                print('Its a draw! well played')
-                break
+            if turn == player1:
+                select_position(board, turn, player1, player2, player1_marker, player2_marker)
+                display_board(board, player1, player2)
+                if win_check(board, player1_marker):
+                    print('Congrats Mr.' + player1 + '! You won this game!')
+                    break
 
-            else:
-                turn = player2
+                elif full_board(board):
+                    print('Its a draw! well played')
+                    break
 
-        elif turn == player2:
-            select_position(board, turn, player1, player2, player1_marker, player2_marker)
-            display_board(board, player1, player2)
+                else:
+                    turn = player2
 
-            if win_check(board, player2_marker):
-                print('Congrats Mr.' + player2 + '! You are the OrkinKing of this game!')
-                break
+            elif turn == player2:
+                select_position(board, turn, player1, player2, player1_marker, player2_marker)
+                display_board(board, player1, player2)
 
-            elif full_board(board):
-                print('Its a draw! well played')
-                break
+                if win_check(board, player2_marker):
+                    print('Congrats Mr.' + player2 + '! You are the OrkinKing of this game!')
+                    break
 
-            else:
-                turn = player1
+                elif full_board(board):
+                    print('Its a draw! well played')
+                    break
 
-    if not replay(player1, player2):
-        break
+                else:
+                    turn = player1
+
+        if not replay(player1, player2):
+            break
