@@ -72,7 +72,9 @@ def first_turn(player1, player2):
 
 
 def select_position(board, player, player1, player2, player1_marker, player2_marker):
+
     query = int(input('Mr.' + player + ', Please choose the position where you want to place your marker : '))
+        
     if query not in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
         print('Mr.' + player + ', please enter a valid position!')
     elif board[query] != ' ':
